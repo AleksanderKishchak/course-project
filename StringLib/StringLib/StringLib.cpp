@@ -71,19 +71,19 @@ int StringLib::findIndex(const char *substr) {
 
 	int index_of_substr = -1;
 	int start_index = 0;
-	int str_len = strlen(str);
+	int str_len = strlen(this->str);
 	int substr_len = strlen(substr);
 
 	if (substr_len > str_len) return -1;
 
 	for (int i = 0; i < str_len; i++) {
-		if (str[i] == substr[0]) {
+		if (this->str[i] == substr[0]) {
 			if (str_len - i < substr_len) return -1;
 
 			index_of_substr = i;
 
 			for (int j = 0; j < substr_len; j++) {
-				if (str[i + j] == substr[j]) {
+				if (this->str[i + j] == substr[j]) {
 					continue;
 				}
 				else {
@@ -100,24 +100,23 @@ int StringLib::findIndex(const char *substr) {
 
 	return index_of_substr;
 }
-
 int StringLib::findIndex(char *substr) {
 
 	int index_of_substr = -1;
 	int start_index = 0;
-	int str_len = strlen(str);
+	int str_len = strlen(this->str);
 	int substr_len = strlen(substr);
 
 	if (substr_len > str_len) return -1;
 
 	for (int i = 0; i < str_len; i++) {
-		if (str[i] == substr[0]) {
+		if (this->str[i] == substr[0]) {
 			if (str_len - i < substr_len) return -1;
 
 			index_of_substr = i;
 
 			for (int j = 0; j < substr_len; j++) {
-				if (str[i + j] == substr[j]) {
+				if (this->str[i + j] == substr[j]) {
 					continue;
 				}
 				else {
@@ -134,88 +133,160 @@ int StringLib::findIndex(char *substr) {
 
 	return index_of_substr;
 }
+int StringLib::findIndex(StringLib &substr) {
 
+	int index_of_substr = -1;
+	int start_index = 0;
+	int str_len = strlen(this->str);
+	int substr_len = strlen(substr.str);
+
+	if (substr_len > str_len) return -1;
+
+	for (int i = 0; i < str_len; i++) {
+		if (this->str[i] == substr.str[0]) {
+			if (str_len - i < substr_len) return -1;
+
+			index_of_substr = i;
+
+			for (int j = 0; j < substr_len; j++) {
+				if (this->str[i + j] == substr.str[j]) {
+					continue;
+				}
+				else {
+					index_of_substr = -1;
+					break;
+				}
+			}
+
+			if (index_of_substr != -1) {
+				return index_of_substr;
+			}
+		}
+	}
+
+	return index_of_substr;
+}
 
 
 
 
 void StringLib::replace(char *substr, char *replacement) {
-	int index = findIndex(substr);
+	int index = this->findIndex(substr);
 
 	if (index != -1) {
 		int substr_len = strlen(substr);
-		int str_len = strlen(str);
+		int str_len = strlen(this->str);
 		int replacement_len = strlen(replacement);
 		int rest_str_len = str_len - (index + substr_len) + 1;
 		char *rest_string = new char[rest_str_len];
 		char *string_before_index = new char[index];
 
 		for (int i = index + substr_len, j = 0; i < str_len; i++, j++) {
-			rest_string[j] = str[i];
+			rest_string[j] = this->str[i];
 		}
 
 		rest_string[rest_str_len - 1] = '\0';
 
 		for (int i = 0; i < index; i++) {
-			string_before_index[i] = str[i];
+			string_before_index[i] = this->str[i];
 		}
 		string_before_index[index] = '\0';
 
-		delete[]str;
-		str = new char[str_len - substr_len + replacement_len + 1];
+		delete[]this->str;
+		this->str = new char[str_len - substr_len + replacement_len + 1];
 
 		for (int i = 0; i < index; i++) {
-			str[i] = string_before_index[i];
+			this->str[i] = string_before_index[i];
 		}
 
 		for (int i = 0; i < replacement_len; i++) {
-			str[index + i] = replacement[i];
+			this->str[index + i] = replacement[i];
 		}
 
 		for (int i = 0; i < rest_str_len; i++) {
-			str[index + replacement_len + i] = rest_string[i];
+			this->str[index + replacement_len + i] = rest_string[i];
 		}
 
 		delete[] rest_string;
 		delete[] string_before_index;
 	}
 }
-
 void StringLib::replace(char *substr, const char *replacement) {
-	int index = findIndex(substr);
+	int index = this->findIndex(substr);
 
 	if (index != -1) {
 		int substr_len = strlen(substr);
-		int str_len = strlen(str);
+		int str_len = strlen(this->str);
 		int replacement_len = strlen(replacement);
 		int rest_str_len = str_len - (index + substr_len) + 1;
 		char *rest_string = new char[rest_str_len];
 		char *string_before_index = new char[index];
 
 		for (int i = index + substr_len, j = 0; i < str_len; i++, j++) {
-			rest_string[j] = str[i];
+			rest_string[j] = this->str[i];
 		}
 
 		rest_string[rest_str_len - 1] = '\0';
 
 		for (int i = 0; i < index; i++) {
-			string_before_index[i] = str[i];
+			string_before_index[i] = this->str[i];
 		}
 		string_before_index[index] = '\0';
 
-		delete[]str;
-		str = new char[str_len - substr_len + replacement_len + 1];
+		delete[]this->str;
+		this->str = new char[str_len - substr_len + replacement_len + 1];
 
 		for (int i = 0; i < index; i++) {
-			str[i] = string_before_index[i];
+			this->str[i] = string_before_index[i];
 		}
 
 		for (int i = 0; i < replacement_len; i++) {
-			str[index + i] = replacement[i];
+			this->str[index + i] = replacement[i];
 		}
 
 		for (int i = 0; i < rest_str_len; i++) {
-			str[index + replacement_len + i] = rest_string[i];
+			this->str[index + replacement_len + i] = rest_string[i];
+		}
+
+		delete[] rest_string;
+		delete[] string_before_index;
+	}
+}
+void StringLib::replace(char *substr, StringLib &replacement) {
+	int index = this->findIndex(substr);
+
+	if (index != -1) {
+		int substr_len = strlen(substr);
+		int str_len = strlen(this->str);
+		int replacement_len = strlen(replacement.str);
+		int rest_str_len = str_len - (index + substr_len) + 1;
+		char *rest_string = new char[rest_str_len];
+		char *string_before_index = new char[index];
+
+		for (int i = index + substr_len, j = 0; i < str_len; i++, j++) {
+			rest_string[j] = this->str[i];
+		}
+
+		rest_string[rest_str_len - 1] = '\0';
+
+		for (int i = 0; i < index; i++) {
+			string_before_index[i] = this->str[i];
+		}
+		string_before_index[index] = '\0';
+
+		delete[]this->str;
+		this->str = new char[str_len - substr_len + replacement_len + 1];
+
+		for (int i = 0; i < index; i++) {
+			this->str[i] = string_before_index[i];
+		}
+
+		for (int i = 0; i < replacement_len; i++) {
+			this->str[index + i] = replacement.str[i];
+		}
+
+		for (int i = 0; i < rest_str_len; i++) {
+			this->str[index + replacement_len + i] = rest_string[i];
 		}
 
 		delete[] rest_string;
@@ -224,82 +295,122 @@ void StringLib::replace(char *substr, const char *replacement) {
 }
 
 void StringLib::replace(const char *substr, char *replacement) {
-	int index = findIndex(substr);
+	int index = this->findIndex(substr);
 
 	if (index != -1) {
 		int substr_len = strlen(substr);
-		int str_len = strlen(str);
+		int str_len = strlen(this->str);
 		int replacement_len = strlen(replacement);
 		int rest_str_len = str_len - (index + substr_len) + 1;
 		char *rest_string = new char[rest_str_len];
 		char *string_before_index = new char[index];
 
 		for (int i = index + substr_len, j = 0; i < str_len; i++, j++) {
-			rest_string[j] = str[i];
+			rest_string[j] = this->str[i];
 		}
 
 		rest_string[rest_str_len - 1] = '\0';
 
 		for (int i = 0; i < index; i++) {
-			string_before_index[i] = str[i];
+			string_before_index[i] = this->str[i];
 		}
 		string_before_index[index] = '\0';
 
-		delete[]str;
-		str = new char[str_len - substr_len + replacement_len + 1];
+		delete[]this->str;
+		this->str = new char[str_len - substr_len + replacement_len + 1];
 
 		for (int i = 0; i < index; i++) {
-			str[i] = string_before_index[i];
+			this->str[i] = string_before_index[i];
 		}
 
 		for (int i = 0; i < replacement_len; i++) {
-			str[index + i] = replacement[i];
+			this->str[index + i] = replacement[i];
 		}
 
 		for (int i = 0; i < rest_str_len; i++) {
-			str[index + replacement_len + i] = rest_string[i];
+			this->str[index + replacement_len + i] = rest_string[i];
 		}
 
 		delete[] rest_string;
 		delete[] string_before_index;
 	}
 }
-
 void StringLib::replace(const char *substr, const char *replacement) {
-	int index = findIndex(substr);
+	int index = this->findIndex(substr);
 
 	if (index != -1) {
 		int substr_len = strlen(substr);
-		int str_len = strlen(str);
+		int str_len = strlen(this->str);
 		int replacement_len = strlen(replacement);
 		int rest_str_len = str_len - (index + substr_len) + 1;
 		char *rest_string = new char[rest_str_len];
 		char *string_before_index = new char[index];
 
 		for (int i = index + substr_len, j = 0; i < str_len; i++, j++) {
-			rest_string[j] = str[i];
+			rest_string[j] = this->str[i];
 		}
 
 		rest_string[rest_str_len - 1] = '\0';
 
 		for (int i = 0; i < index; i++) {
-			string_before_index[i] = str[i];
+			string_before_index[i] = this->str[i];
 		}
 		string_before_index[index] = '\0';
 
-		delete[]str;
-		str = new char[str_len - substr_len + replacement_len + 1];
+		delete[]this->str;
+		this->str = new char[str_len - substr_len + replacement_len + 1];
 
 		for (int i = 0; i < index; i++) {
-			str[i] = string_before_index[i];
+			this->str[i] = string_before_index[i];
 		}
 
 		for (int i = 0; i < replacement_len; i++) {
-			str[index + i] = replacement[i];
+			this->str[index + i] = replacement[i];
 		}
 
 		for (int i = 0; i < rest_str_len; i++) {
-			str[index + replacement_len + i] = rest_string[i];
+			this->str[index + replacement_len + i] = rest_string[i];
+		}
+
+		delete[] rest_string;
+		delete[] string_before_index;
+	}
+}
+void StringLib::replace(const char *substr, StringLib &replacement) {
+	int index = this->findIndex(substr);
+
+	if (index != -1) {
+		int substr_len = strlen(substr);
+		int str_len = strlen(this->str);
+		int replacement_len = strlen(replacement.str);
+		int rest_str_len = str_len - (index + substr_len) + 1;
+		char *rest_string = new char[rest_str_len];
+		char *string_before_index = new char[index];
+
+		for (int i = index + substr_len, j = 0; i < str_len; i++, j++) {
+			rest_string[j] = this->str[i];
+		}
+
+		rest_string[rest_str_len - 1] = '\0';
+
+		for (int i = 0; i < index; i++) {
+			string_before_index[i] = this->str[i];
+		}
+		string_before_index[index] = '\0';
+
+		delete[]this->str;
+		this->str = new char[str_len - substr_len + replacement_len + 1];
+
+		for (int i = 0; i < index; i++) {
+			this->str[i] = string_before_index[i];
+		}
+
+		for (int i = 0; i < replacement_len; i++) {
+			this->str[index + i] = replacement.str[i];
+		}
+
+		for (int i = 0; i < rest_str_len; i++) {
+			this->str[index + replacement_len + i] = rest_string[i];
 		}
 
 		delete[] rest_string;
@@ -307,6 +418,129 @@ void StringLib::replace(const char *substr, const char *replacement) {
 	}
 }
 
+void StringLib::replace(StringLib &substr, char *replacement) {
+	int index = this->findIndex(substr.str);
+
+	if (index != -1) {
+		int substr_len = strlen(substr.str);
+		int str_len = strlen(this->str);
+		int replacement_len = strlen(replacement);
+		int rest_str_len = str_len - (index + substr_len) + 1;
+		char *rest_string = new char[rest_str_len];
+		char *string_before_index = new char[index];
+
+		for (int i = index + substr_len, j = 0; i < str_len; i++, j++) {
+			rest_string[j] = this->str[i];
+		}
+
+		rest_string[rest_str_len - 1] = '\0';
+
+		for (int i = 0; i < index; i++) {
+			string_before_index[i] = this->str[i];
+		}
+		string_before_index[index] = '\0';
+
+		delete[]this->str;
+		this->str = new char[str_len - substr_len + replacement_len + 1];
+
+		for (int i = 0; i < index; i++) {
+			this->str[i] = string_before_index[i];
+		}
+
+		for (int i = 0; i < replacement_len; i++) {
+			this->str[index + i] = replacement[i];
+		}
+
+		for (int i = 0; i < rest_str_len; i++) {
+			this->str[index + replacement_len + i] = rest_string[i];
+		}
+
+		delete[] rest_string;
+		delete[] string_before_index;
+	}
+}
+void StringLib::replace(StringLib &substr, const char *replacement) {
+	int index = this->findIndex(substr.str);
+
+	if (index != -1) {
+		int substr_len = strlen(substr.str);
+		int str_len = strlen(this->str);
+		int replacement_len = strlen(replacement);
+		int rest_str_len = str_len - (index + substr_len) + 1;
+		char *rest_string = new char[rest_str_len];
+		char *string_before_index = new char[index];
+
+		for (int i = index + substr_len, j = 0; i < str_len; i++, j++) {
+			rest_string[j] = this->str[i];
+		}
+
+		rest_string[rest_str_len - 1] = '\0';
+
+		for (int i = 0; i < index; i++) {
+			string_before_index[i] = this->str[i];
+		}
+		string_before_index[index] = '\0';
+
+		delete[]this->str;
+		this->str = new char[str_len - substr_len + replacement_len + 1];
+
+		for (int i = 0; i < index; i++) {
+			this->str[i] = string_before_index[i];
+		}
+
+		for (int i = 0; i < replacement_len; i++) {
+			this->str[index + i] = replacement[i];
+		}
+
+		for (int i = 0; i < rest_str_len; i++) {
+			this->str[index + replacement_len + i] = rest_string[i];
+		}
+
+		delete[] rest_string;
+		delete[] string_before_index;
+	}
+}
+void StringLib::replace(StringLib &substr, StringLib &replacement) {
+	int index = this->findIndex(substr.str);
+
+	if (index != -1) {
+		int substr_len = strlen(substr.str);
+		int str_len = strlen(this->str);
+		int replacement_len = strlen(replacement.str);
+		int rest_str_len = str_len - (index + substr_len) + 1;
+		char *rest_string = new char[rest_str_len];
+		char *string_before_index = new char[index];
+
+		for (int i = index + substr_len, j = 0; i < str_len; i++, j++) {
+			rest_string[j] = this->str[i];
+		}
+
+		rest_string[rest_str_len - 1] = '\0';
+
+		for (int i = 0; i < index; i++) {
+			string_before_index[i] = this->str[i];
+		}
+		string_before_index[index] = '\0';
+
+		delete[]this->str;
+		this->str = new char[str_len - substr_len + replacement_len + 1];
+
+		for (int i = 0; i < index; i++) {
+			this->str[i] = string_before_index[i];
+		}
+
+		for (int i = 0; i < replacement_len; i++) {
+			this->str[index + i] = replacement.str[i];
+		}
+
+		for (int i = 0; i < rest_str_len; i++) {
+			this->str[index + replacement_len + i] = rest_string[i];
+		}
+
+		delete[] rest_string;
+		delete[] string_before_index;
+	}
+}
 
 
 

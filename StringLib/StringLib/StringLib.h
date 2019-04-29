@@ -21,11 +21,23 @@ public:
 
 	int findIndex(char *);
 	int findIndex(const char *);
+	int findIndex(StringLib &);
+
+
 
 	void replace(char *, char *);
 	void replace(char *, const char *);
+	void replace(char *, StringLib &);
+
 	void replace(const char *, char *);
 	void replace(const char *, const char *);
+	void replace(const char *, StringLib &);
+
+	void replace(StringLib &, char *);
+	void replace(StringLib &, const char *);
+	void replace(StringLib &, StringLib &);
+
+
 
 	void swap(StringLib &);
 
