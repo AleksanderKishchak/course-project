@@ -141,6 +141,7 @@ int main() {
 				cout << "Enter second string\n";
 				cin >> str2;
 				cout << (str1 == str2) << endl;
+				break;
 			case 15:
 				cin >> trash;
 
@@ -148,6 +149,7 @@ int main() {
 				cout << "Enter second string\n";
 				cin >> str2;
 				cout << (str1 != str2) << endl;
+				break;
 			case 16:
 				cin >> trash;
 
@@ -155,6 +157,7 @@ int main() {
 				cout << "Enter second string\n";
 				cin >> str2;
 				cout << (str1 > str2) << endl;
+				break;
 			case 17:
 				cin >> trash;
 
@@ -162,6 +165,7 @@ int main() {
 				cout << "Enter second string\n";
 				cin >> str2;
 				cout << (str1 >= str2) << endl;
+				break;
 			case 18:
 				cin >> trash;
 
@@ -169,6 +173,7 @@ int main() {
 				cout << "Enter second string\n";
 				cin >> str2;
 				cout << (str1 < str2) << endl;
+				break;
 			case 19:
 				cin >> trash;
 
@@ -176,6 +181,7 @@ int main() {
 				cout << "Enter second string\n";
 				cin >> str2;
 				cout << (str1 <= str2) << endl;
+				break;
 			default:
 				cout << "wrong number\n";
 		}
